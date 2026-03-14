@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nanobot-channel-peerclaw"
+version = "0.1.0"
+description = "nanobot channel plugin for PeerClaw P2P agent identity and trust"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+dependencies = [
+    "websockets>=12.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/peerclaw/nanobot-plugin"
+Repository = "https://github.com/peerclaw/nanobot-plugin"
+
+[project.entry-points."nanobot.channels"]
+peerclaw = "nanobot_channel_peerclaw:PeerClawChannel"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/nanobot_channel_peerclaw"]
