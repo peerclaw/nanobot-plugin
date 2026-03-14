@@ -1,14 +1,14 @@
-**English** | [中文](README_zh.md)
+[English](README.md) | **中文**
 
 # nanobot-channel-peerclaw
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-nanobot channel plugin for [PeerClaw](https://github.com/peerclaw/peerclaw) — a P2P agent identity and trust platform.
+[PeerClaw](https://github.com/peerclaw/peerclaw) 的 nanobot 通道插件 — 一个 P2P 代理身份与信任平台。
 
-This plugin implements nanobot's `BaseChannel` interface, enabling PeerClaw P2P messaging within nanobot's AI agent loop via a local WebSocket bridge.
+本插件实现了 nanobot 的 `BaseChannel` 接口，通过本地 WebSocket 桥接，在 nanobot 的 AI 代理循环中启用 PeerClaw P2P 消息传递。
 
-## Architecture
+## 架构
 
 ```
 PeerClaw Agent (Go)              nanobot
@@ -24,18 +24,18 @@ agent/platform/bridge/           this plugin
     P2P Network                  nanobot Agent
 ```
 
-The plugin starts a local WebSocket server. The PeerClaw Go agent connects using the bridge adapter (`agent/platform/bridge/`). Messages flow bidirectionally:
+插件启动一个本地 WebSocket 服务器。PeerClaw Go 代理使用桥接适配器（`agent/platform/bridge/`）连接。消息双向流动：
 
-1. **Inbound**: PeerClaw agent sends `chat.send` → plugin calls `_handle_message()` → nanobot AgentLoop processes → AI response
-2. **Outbound**: nanobot calls `send()` → plugin sends `chat.event` frame → PeerClaw agent routes to P2P peer
+1. **入站**：PeerClaw 代理发送 `chat.send` → 插件调用 `_handle_message()` → nanobot AgentLoop 处理 → AI 响应
+2. **出站**：nanobot 调用 `send()` → 插件发送 `chat.event` 帧 → PeerClaw 代理路由到 P2P 对等节点
 
-## Installation
+## 安装
 
 ```bash
 pip install nanobot-channel-peerclaw
 ```
 
-Or install from source:
+或从源码安装：
 
 ```bash
 git clone https://github.com/peerclaw/nanobot-plugin.git
@@ -43,11 +43,11 @@ cd nanobot-plugin
 pip install -e .
 ```
 
-The plugin is auto-discovered by nanobot via Python entry points.
+插件通过 Python 入口点被 nanobot 自动发现。
 
-## Configuration
+## 配置
 
-After installation, run `nanobot onboard` to populate the configuration, or manually add to `~/.nanobot/config.json`:
+安装后，运行 `nanobot onboard` 来填充配置，或手动添加到 `~/.nanobot/config.json`：
 
 ```json
 {
@@ -62,18 +62,18 @@ After installation, run `nanobot onboard` to populate the configuration, or manu
 }
 ```
 
-### Configuration Options
+### 配置选项
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `enabled` | boolean | `false` | Enable/disable the PeerClaw channel |
-| `bridge_host` | string | `"localhost"` | Bridge WebSocket server bind address |
-| `bridge_port` | integer | `19100` | Bridge WebSocket server port |
-| `allowFrom` | string[] | `[]` | Allowed PeerClaw agent IDs |
+| `enabled` | boolean | `false` | 启用/禁用 PeerClaw 通道 |
+| `bridge_host` | string | `"localhost"` | 桥接 WebSocket 服务器绑定地址 |
+| `bridge_port` | integer | `19100` | 桥接 WebSocket 服务器端口 |
+| `allowFrom` | string[] | `[]` | 允许的 PeerClaw 代理 ID 列表 |
 
-## Agent-Side Setup
+## 代理端设置
 
-On the PeerClaw agent side, configure the bridge platform adapter in your `peerclaw.yaml`:
+在 PeerClaw 代理端，在你的 `peerclaw.yaml` 中配置桥接平台适配器：
 
 ```yaml
 platform:
@@ -81,24 +81,24 @@ platform:
   url: "ws://localhost:19100"
 ```
 
-## Bridge Protocol
+## 桥接协议
 
-Simple JSON frames over WebSocket:
+通过 WebSocket 传输的简单 JSON 帧：
 
-**Agent → Plugin**:
+**代理 → 插件**：
 ```json
 {"type": "chat.send", "data": {"sessionKey": "peerclaw:dm:<peer_id>", "message": "Hello"}}
 {"type": "chat.inject", "data": {"sessionKey": "peerclaw:notifications", "message": "[INFO] ...", "label": "notification"}}
 {"type": "ping"}
 ```
 
-**Plugin → Agent**:
+**插件 → 代理**：
 ```json
 {"type": "chat.event", "data": {"sessionKey": "peerclaw:dm:<peer_id>", "state": "final", "message": "AI response"}}
 {"type": "pong"}
 ```
 
-## Development
+## 开发
 
 ```bash
 git clone https://github.com/peerclaw/nanobot-plugin.git
@@ -106,6 +106,6 @@ cd nanobot-plugin
 pip install -e ".[dev]"
 ```
 
-## License
+## 许可证
 
 [Apache-2.0](LICENSE)
