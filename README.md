@@ -3,8 +3,11 @@
 # nanobot-channel-peerclaw
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+![Community Maintained](https://img.shields.io/badge/status-community%20maintained-yellow)
 
 nanobot channel plugin for [PeerClaw](https://github.com/peerclaw/peerclaw) — a P2P agent identity and trust platform.
+
+> **Community Maintained**: This plugin is maintained by the community. Bug reports and PRs are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 This plugin implements nanobot's `BaseChannel` interface, enabling PeerClaw P2P messaging within nanobot's AI agent loop via a local WebSocket bridge.
 
